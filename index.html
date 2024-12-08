@@ -23,14 +23,14 @@
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
                 <a href="" class="text-black text-lg">Clients</a>
-                <a href="" class="text-black text-lg">Voitures</a>
+                <a href="/pages/voitures.html" class="text-black text-lg">Voitures</a>
                 <a href="" class="text-black text-lg">Contrats</a>
             </div>
         </div>
         <div class="hidden lg:flex justify-center space-x-4">
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Voitures</a>
+                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Voitures</a>
                 </li>
                 <li>
                     <a href="#" class="hover:underline me-4 md:me-6">Clients</a>
@@ -62,15 +62,14 @@
         const sidebar = document.getElementById("sidebar");
         const closeSidebar = document.getElementById("close-sidebar");
 
-        // Ouvrir le sidebar en cliquant sur l'icône burger
         menu.addEventListener("click", () => {
-            sidebar.classList.remove("translate-x-full");  // Déplacer le sidebar dans l'écran
+            sidebar.classList.remove("translate-x-full");  
             sidebar.classList.add("translate-x-0");
         });
 
         closeSidebar.addEventListener("click", () => {
-            sidebar.classList.add("translate-x-full");    // Déplacer le sidebar en dehors de l'écran à droite
-            sidebar.classList.remove("translate-x-0");    // Retirer la position normale
+            sidebar.classList.add("translate-x-full");    
+            sidebar.classList.remove("translate-x-0");   
         });
     </script>
 
@@ -82,7 +81,7 @@
         </a>
         <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
             <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Voitures</a>
+                <a href="pages/voitures.html" class="hover:underline me-4 md:me-6">Voitures</a>
             </li>
             <li>
                 <a href="#" class="hover:underline me-4 md:me-6">Clients</a>
