@@ -10,7 +10,7 @@
 
 <body >
     <header class="flex justify-between p-4">
-        <a href="/index.html" id="cars">
+        <a href="/index.php" id="cars">
             <img src="/images/cars.gif" alt="">
         </a>
         <div class="lg:hidden" id="burger-icon">
