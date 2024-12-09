@@ -78,25 +78,36 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <section class="bg-blue-200 py-8 relative">
     <div class="px-6 flex items-center justify-between">
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-0">List of Contras</h1>
-        <button class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
-            Add new Contras
-        </button>
+        <button id="addNew" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
+    Add new Contras
+</button>
     </div>
 </section>
 
 <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
   <form class="max-w-sm mx-auto bg-white p-10 rounded-lg">
     <div class="mb-5">
-    <label for="name " class="block mb-2 text-sm font-medium ">name</label>
-    <input type="text" id="name" class="border bg-gray-200 p-2 rounded-md" required />
+      <label for="start" class="block mb-2 text-sm font-medium">                    start date                </th>
+      </label>
+      <input type="date" id="start" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
-    <label for="address " class="block mb-2 text-sm font-medium ">address</label>
-    <input type="text" id="address" class="border bg-gray-200 p-2 rounded-md" required />
+      <label for="end" class="block mb-2 text-sm font-medium">                    end date                </th>
+      </label>
+      <input type="date" id="end" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
-    <label for="number " class="block mb-2 text-sm font-medium ">phone number</label>
-    <input type="text" id="number" class="border bg-gray-200 p-2 rounded-md" required />
+      <label for="durée" class="block mb-2 text-sm font-medium">duration in days</label>
+      <input type="text" id="durée" class="border bg-gray-200 p-2 rounded-md" required />
+    </div>
+    <div class="mb-5">
+      <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer Customer</label>
+      <input type="number" id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md" required />
+    </div>
+    <div class="mb-5">
+      <label for="Registration" class="block mb-2 text-sm font-medium">Registration number                       </th>
+      </label>
+      <input type="text" id="Registration" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
     <button id="canceladd" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
@@ -161,30 +172,34 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </div>
 <script>
-        const menu = document.getElementById("burger-icon");
-        const sidebar = document.getElementById("sidebar");
-        const closeSidebar = document.getElementById("close-sidebar");
-        const addClient=document.getElementById("addClient");
-        const addmodal =document.getElementById("modalAdd");
-        const cancel=document.getElementById("canceladd");
+  document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.getElementById("burger-icon");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebar = document.getElementById("close-sidebar");
+    const addNew = document.getElementById("addNew");
+    const addmodal = document.getElementById("modalAdd");
+    const cancel = document.getElementById("canceladd");
 
-        menu.addEventListener("click", () => {
-            sidebar.classList.remove("translate-x-full");  
-            sidebar.classList.add("translate-x-0");
-        });
+    menu.addEventListener("click", () => {
+      sidebar.classList.remove("translate-x-full");
+      sidebar.classList.add("translate-x-0");
+    });
 
-        closeSidebar.addEventListener("click", () => {
-            sidebar.classList.add("translate-x-full");   
-            sidebar.classList.remove("translate-x-0");    
-        });
+    closeSidebar.addEventListener("click", () => {
+      sidebar.classList.add("translate-x-full");
+      sidebar.classList.remove("translate-x-0");
+    });
 
-        addClient.addEventListener("click",()=>{
-          addmodal.classList.toggle("hidden");
-        })
-        cancel.addEventListener("click",()=>{
-          addmodal.classList.toggle("hidden");
-        })
-    </script>
+    addNew.addEventListener("click", () => {
+      addmodal.classList.toggle("hidden");
+    });
+
+    cancel.addEventListener("click", () => {
+      addmodal.classList.toggle("hidden");
+    });
+  });
+</script>
+
 </body>
 
 </html>
