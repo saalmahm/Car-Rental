@@ -10,7 +10,7 @@
 
 <body >
     <header class="flex justify-between p-4">
-        <a href="/index.html" id="cars">
+        <a href="/index.php" id="cars">
             <img src="/images/cars.gif" alt="">
         </a>
         <div class="lg:hidden" id="burger-icon">
@@ -22,17 +22,17 @@
                 <button id="close-sidebar" class=" text-3xl">×</button>
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
-                <a href="/pages/voitures.html" class="text-black text-lg">Cars</a>
-                <a href="/pages/contrats.html" class="text-black text-lg">Contracts</a>
+                <a href="/pages/voitures.php" class="text-black text-lg">Cars</a>
+                <a href="/pages/contrats.php" class="text-black text-lg">Contracts</a>
             </div>
         </div>
         <div class="hidden lg:flex justify-center space-x-4">
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Cars</a>
+                    <a href="/pages/voitures.php" class="hover:underline me-4 md:me-6">Cars</a>
                 </li>
                 <li>
-                    <a href="/pages/contrats.html" class="hover:underline me-4 md:me-6">Contracts</a>
+                    <a href="/pages/contrats.php" class="hover:underline me-4 md:me-6">Contracts</a>
                 </li>
             </ul>
         </div>
@@ -143,10 +143,10 @@
             </a>
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Voitures</a>
+                    <a href="/pages/voitures.php" class="hover:underline me-4 md:me-6">Voitures</a>
                 </li>
                 <li>
-                    <a href="/pages/contrats.html" class="hover:underline me-4 md:me-6">Contras</a>
+                    <a href="/pages/contrats.php" class="hover:underline me-4 md:me-6">Contras</a>
                 </li>
             </ul>
         </div>

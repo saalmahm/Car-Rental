@@ -22,18 +22,18 @@
                 <button id="close-sidebar" class=" text-3xl">×</button>
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
-                <a href="/pages/voitures.html" class="text-black text-lg">Cars</a>
-                <a href="/pages/clients.html" class="text-black text-lg">Customers</a>
+                <a href="/pages/voitures.php" class="text-black text-lg">Cars</a>
+                <a href="/pages/clients.php" class="text-black text-lg">Customers</a>
 
             </div>
         </div>
         <div class="hidden lg:flex justify-center space-x-4">
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Cars</a>
+                    <a href="/pages/voitures.php" class="hover:underline me-4 md:me-6">Cars</a>
                 </li>
                 <li>
-                    <a href="/pages/clients.html" class="hover:underline me-4 md:me-6">Customers</a>
+                    <a href="/pages/clients.php" class="hover:underline me-4 md:me-6">Customers</a>
                 </li>
                 <li>
                 </li>
@@ -148,10 +148,10 @@
             </a>
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Voitures</a>
+                    <a href="/pages/voitures.php" class="hover:underline me-4 md:me-6">Voitures</a>
                 </li>
                 <li>
-                    <a href="/pages/clients.html" class="hover:underline me-4 md:me-6">Clients</a>
+                    <a href="/pages/clients.php" class="hover:underline me-4 md:me-6">Clients</a>
                 </li>
             </ul>
         </div>

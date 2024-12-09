@@ -10,7 +10,7 @@
 
 <body >
     <header class="flex justify-between p-4">
-        <a href="/index.html" id="cars">
+        <a href="/index.php" id="cars">
             <img src="images/cars.gif" alt="">
         </a>
         <div class="lg:hidden" id="burger-icon">
@@ -23,9 +23,9 @@
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
                 <a href="#Contact" class="text-black text-lg">Contact us</a>
-                <a href="/pages/voitures.html" class="text-black text-lg">Cars</a>
-                <a href="/pages/clients.html" class="text-black text-lg">Customers</a>
-                <a href="/pages/contrats.html" class="text-black text-lg">Contracts</a>
+                <a href="/pages/voitures.php" class="text-black text-lg">Cars</a>
+                <a href="/pages/clients.php" class="text-black text-lg">Customers</a>
+                <a href="/pages/contrats.php" class="text-black text-lg">Contracts</a>
 
             </div>
         </div>
@@ -35,13 +35,13 @@
                     <a href="#Contact" class="hover:underline me-4 md:me-6">Contact us</a>
                 </li>
                 <li>
-                    <a href="/pages/voitures.html" class="hover:underline me-4 md:me-6">Cars</a>
+                    <a href="/pages/voitures.php" class="hover:underline me-4 md:me-6">Cars</a>
                 </li>
                 <li>
-                    <a href="/pages/clients.html" class="hover:underline me-4 md:me-6">Customers</a>
+                    <a href="/pages/clients.php" class="hover:underline me-4 md:me-6">Customers</a>
                 </li>
                 <li>
-                    <a href="/pages/contrats.html" class="hover:underline me-4 md:me-6">Contracts</a>
+                    <a href="/pages/contrats.php" class="hover:underline me-4 md:me-6">Contracts</a>
                 </li>
 
             </ul>
@@ -54,7 +54,7 @@
             <div class="px-6 lg:right-2">
             <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-4">Car Rental</h1>
             <p class="text-lg sm:text-xl text-gray-700 mb-8">Welcome to our fleet of cars.</p>
-            <a href="/pages/voitures.html" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
+            <a href="/pages/voitures.php" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
                 View Our Cars
             </a>
         </div>
@@ -113,13 +113,13 @@
                 <a href="#Contact" class="hover:underline me-4 md:me-6">Contact us</a>
             </li>
             <li>
-                <a href="pages/voitures.html" class="hover:underline me-4 md:me-6">Cars</a>
+                <a href="pages/voitures.php" class="hover:underline me-4 md:me-6">Cars</a>
             </li>
             <li>
-                <a href="pages/clients.html" class="hover:underline me-4 md:me-6">Customers</a>
+                <a href="pages/clients.php" class="hover:underline me-4 md:me-6">Customers</a>
             </li>
             <li>
-                <a href="pages/contrats.html" class="hover:underline me-4 md:me-6">Contracts</a>
+                <a href="pages/contrats.php" class="hover:underline me-4 md:me-6">Contracts</a>
             </li>
         </ul>
     </div>

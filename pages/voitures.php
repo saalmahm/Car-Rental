@@ -1,3 +1,19 @@
+
+<?php
+ $host = 'localhost';
+ $dbname = 'locationvoitures';
+ $username = 'root';
+ $password = 'hamdi';
+ 
+ try {
+     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+     echo "KHadaaaaaaaaaaaaam";
+ } catch (PDOException $e) {
+     echo "Erreur de connexion : " . $e->getMessage();
+     
+ }
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,17 +38,17 @@
                 <button id="close-sidebar" class=" text-3xl">X</button>
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
-                <a href="/pages/clients.html" class="text-black text-lg">Customers</a>
-                <a href="/pages/contrats.html" class="text-black text-lg">Contracts</a>
+                <a href="/pages/clients.php" class="text-black text-lg">Customers</a>
+                <a href="/pages/contrats.php" class="text-black text-lg">Contracts</a>
             </div>
         </div>
         <div class="hidden lg:flex justify-center space-x-4">
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/clients.html" class="hover:underline me-4 md:me-6">Customers</a>
+                    <a href="/pages/clients.php" class="hover:underline me-4 md:me-6">Customers</a>
                 </li>
                 <li>
-                    <a href="/pages/contrats.html" class="hover:underline me-4 md:me-6">Contracts</a>
+                    <a href="/pages/contrats.php" class="hover:underline me-4 md:me-6">Contracts</a>
                 </li>
             </ul>
         </div>
@@ -147,10 +163,10 @@
             </a>
             <ul class="flex items-center text-sm font-medium text-gray-400 mb-0 ">
                 <li>
-                    <a href="/pages/clients.html" class="hover:underline me-4 md:me-6">Clients</a>
+                    <a href="/pages/clients.php" class="hover:underline me-4 md:me-6">Clients</a>
                 </li>
                 <li>
-                    <a href="/pages/contrats.html" class="hover:underline me-4 md:me-6">Contras</a>
+                    <a href="/pages/contrats.php" class="hover:underline me-4 md:me-6">Contras</a>
                 </li>
             </ul>
         </div>
