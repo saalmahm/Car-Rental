@@ -98,36 +98,37 @@ $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
-        <?php if (!empty($errorMessage)): ?>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong><?php echo $errorMessage; ?></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
-        <?php if (!empty($successMessage)): ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong><?php echo $successMessage; ?></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
-
-        <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
-            <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
-                <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($nom); ?>" required />
-            </div>
-            <div class="mb-5">
-                <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
-                <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($adresse); ?>" required />
-            </div>
-            <div class="mb-5">
-                <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
-                <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($tel); ?>" required />
-            </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Ajouter</button>
-            <button id="canceladd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
-        </form>
+    <!-- Affichage des alertes -->
+    <?php if (!empty($errorMessage)): ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><?php echo $errorMessage; ?></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <?php endif; ?>
+    <?php if (!empty($successMessage)): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><?php echo $successMessage; ?></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php endif; ?>
+
+    <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
+        <div class="mb-5">
+            <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
+            <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($nom); ?>" required />
+        </div>
+        <div class="mb-5">
+            <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
+            <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($adresse); ?>" required />
+        </div>
+        <div class="mb-5">
+            <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
+            <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($tel); ?>" required />
+        </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Ajouter</button>
+        <button id="canceladd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
+    </form>
+</div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-2 my-8">
         <table class="w-full text-sm text-left text-gray-400">

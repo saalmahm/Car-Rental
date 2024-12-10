@@ -17,25 +17,6 @@ $stmt->execute();
 
 $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
  ?>
-<?php
- $host = 'localhost';
- $dbname = 'locationvoitures';
- $username = 'root';
- $password = 'hamdi';
- 
- try {
-     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    //  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- } catch (PDOException $e) {
-     echo "Erreur de connexion : " . $e->getMessage();
-     
- }
-$sql = "SELECT * FROM Contrats";
-$stmt = $pdo->prepare($sql);  
-$stmt->execute();  
-
-$contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
- ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +29,6 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body >
     <header class="flex justify-between p-4">
-        <a href="/index.php" id="cars">
         <a href="/index.php" id="cars">
             <img src="/images/cars.gif" alt="">
         </a>
@@ -101,9 +81,6 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button id="addNew" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
     Add new Contras
 </button>
-        <button id="addNew" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
-    Add new Contras
-</button>
     </div>
 </section>
 
@@ -133,7 +110,7 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <input type="text" id="Registration" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
-    <button id="canceladd"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+    <button id="canceladd" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
   </form>
 </div>
 
@@ -150,12 +127,6 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     end date                </th>
                 <th scope="col" class="px-6 py-3">
                     duration in days
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Customer number
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Registration number                       </th>
                 </th>
                 <th scope="col" class="px-6 py-3">
                 Customer number
@@ -197,65 +168,9 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tr>
 <?php endforeach; ?>
 
-<?php foreach ($contrats as $contrat): ?> 
-    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        <?php echo ($contrat['NumContrat']); ?>
-        </th>
-        <td class="px-6 py-4">
-        <?php echo ($contrat['DateDebut']); ?>
-        </td>
-        <td class="px-6 py-4">
-        <?php echo ($contrat['DateFin']); ?>
-        </td>
-        <td class="px-6 py-4">
-        <?php echo ($contrat['Duree']); ?>
-        </td>
-        <td class="px-6 py-4">
-        <?php echo ($contrat['NumClient']); ?>
-        </td>
-        <td class="px-6 py-4">
-        <?php echo ($contrat['NumImmatriculation']); ?>
-        </td>
-        <td class="px-6 py-4 text-right">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit  </a>
-            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-
-        </td>
-    </tr>
-<?php endforeach; ?>
-
         </tbody>
     </table>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const menu = document.getElementById("burger-icon");
-    const sidebar = document.getElementById("sidebar");
-    const closeSidebar = document.getElementById("close-sidebar");
-    const addNew = document.getElementById("addNew");
-    const addmodal = document.getElementById("modalAdd");
-    const cancel = document.getElementById("canceladd");
-
-    menu.addEventListener("click", () => {
-      sidebar.classList.remove("translate-x-full");
-      sidebar.classList.add("translate-x-0");
-    });
-
-    closeSidebar.addEventListener("click", () => {
-      sidebar.classList.add("translate-x-full");
-      sidebar.classList.remove("translate-x-0");
-    });
-
-    addNew.addEventListener("click", () => {
-      addmodal.classList.toggle("hidden");
-    });
-
-    cancel.addEventListener("click", () => {
-      addmodal.classList.toggle("hidden");
-    });
-  });
-</script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById("burger-icon");

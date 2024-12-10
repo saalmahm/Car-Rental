@@ -1,4 +1,3 @@
-
 <?php
  $host = 'localhost';
  $dbname = 'locationvoitures';
@@ -62,7 +61,7 @@ $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <section class="bg-blue-200 py-8 relative">
     <div class="px-6 flex items-center justify-between">
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-0">List of cars</h1>
-        <button id="addCar" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
+        <button  id="addCar" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
             Add a new car
         </button>
     </div>
@@ -149,7 +148,6 @@ $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
         const addCar=document.getElementById("addCar");
         const addmodal =document.getElementById("modalAdd");
         const cancel=document.getElementById("canceladd");
-        const cancel=document.getElementById("canceladd");
 
         menu.addEventListener("click", () => {
             sidebar.classList.remove("translate-x-full");  
@@ -162,9 +160,6 @@ $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
         });
 
         addCar.addEventListener("click",()=>{
-          addmodal.classList.toggle("hidden");
-        })
-        cancel.addEventListener("click",()=>{
           addmodal.classList.toggle("hidden");
         })
         cancel.addEventListener("click",()=>{
