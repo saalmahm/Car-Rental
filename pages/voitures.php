@@ -149,6 +149,7 @@ $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
         const addCar=document.getElementById("addCar");
         const addmodal =document.getElementById("modalAdd");
         const cancel=document.getElementById("canceladd");
+        const cancel=document.getElementById("canceladd");
 
         menu.addEventListener("click", () => {
             sidebar.classList.remove("translate-x-full");  
@@ -161,6 +162,9 @@ $voitures = $stmt->fetchAll(PDO::FETCH_ASSOC);
         });
 
         addCar.addEventListener("click",()=>{
+          addmodal.classList.toggle("hidden");
+        })
+        cancel.addEventListener("click",()=>{
           addmodal.classList.toggle("hidden");
         })
         cancel.addEventListener("click",()=>{
