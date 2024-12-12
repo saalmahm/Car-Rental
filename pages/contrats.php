@@ -4,18 +4,23 @@
  $username = 'root';
  $password = 'hamdi';
  
- try {
-     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    //  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- } catch (PDOException $e) {
-     echo "Erreur de connexion : " . $e->getMessage();
-     
- }
-$sql = "SELECT * FROM Contrats";
-$stmt = $pdo->prepare($sql);  
-$stmt->execute();  
+ $conn = mysqli_connect($host, $username, $password, $dbname);
 
-$contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+ if(!$conn) {
+     die("connection failed". mysqli_connect_error());
+ }
+
+$sql = "SELECT ct.*, c.Nom FROM Contrats ct, Clients c";
+$contrats = mysqli_query($conn, $sql);
+$contrats->fetch_assoc();
+
+$sql = "SELECT * FROM Clients";
+$clients = mysqli_query($conn, $sql); 
+$clients->fetch_assoc();
+
+$sql = "SELECT * FROM Voitures";
+$voitures = mysqli_query($conn, $sql); 
+$voitures->fetch_assoc();
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,13 +106,21 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <input type="text" id="durée" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
-      <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer number</label>
-      <input type="number" id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md" required />
+      <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer</label>
+      <select id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md">
+        <?php foreach($clients as $client){ ?>
+            <option value="<?php echo $client['NumClient'] ?>"><?php echo $client['Nom'] ?></option>
+        <?php } ?>
+      </select>
     </div>
     <div class="mb-5">
       <label for="Registration" class="block mb-2 text-sm font-medium">Registration number                       </th>
       </label>
-      <input type="text" id="Registration" class="border bg-gray-200 p-2 rounded-md" required />
+      <select id="Registration" class="border bg-gray-200 p-2 rounded-md" required >
+        <?php foreach($voitures as $voiture){ ?>
+        <option value="<?php echo $voiture['NumImmatriculation'] ?>"> <?php echo $voiture['NumImmatriculation'] ?> </option>
+       <?php } ?>
+      </select>
     </div>
     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
     <button id="canceladd" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
@@ -155,7 +168,7 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php echo ($contrat['Duree']); ?>
         </td>
         <td class="px-6 py-4">
-        <?php echo ($contrat['NumClient']); ?>
+        <?php echo ($contrat['Nom']); ?>
         </td>
         <td class="px-6 py-4">
         <?php echo ($contrat['NumImmatriculation']); ?>
