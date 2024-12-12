@@ -144,7 +144,7 @@ if ($voituresResult && mysqli_num_rows($voituresResult) > 0) {
     <div class="mb-5">
       <label for="end" class="block mb-2 text-sm font-medium">end date</th>
       </label>
-      <input name="endd" type="date" id="end" class="border bg-gray-200 p-2 rounded-md" required />
+      <input name="endd" type="date" id="end" class="border bg-gray-200 p-2 rounded-md" required />+
     </div>
     <div class="mb-5">
       <label for="durée" class="block mb-2 text-sm font-medium">duration in days</label>

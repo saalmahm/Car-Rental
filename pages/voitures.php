@@ -34,6 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if (isset($_GET['NumImmatriculation'])) {
+    $NumImmatriculation = $_GET['NumImmatriculation'];
+
+    $params = array($NumImmatriculation);
+    $deleteVoiture = $conn->prepare("Delete FROM Voitures WHERE NumImmatriculation = ?");
+
+    $deleteVoiture->execute($params); 
+    header('location:voitures.php'); 
+}
+
 $sql = "SELECT * FROM Voitures";
 $voitures = mysqli_query($conn, $sql);
 $voitures->fetch_assoc();
@@ -134,7 +144,7 @@ $voitures->fetch_assoc();
                         <td class="px-6 py-4"><?php echo $voiture['Annee']; ?></td>
                         <td class="px-6 py-4 text-right">
                             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
-                            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                            <a href="./voitures.php?NumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
