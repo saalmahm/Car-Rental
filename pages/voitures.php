@@ -19,9 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($NumImmatriculation) || empty($Marque) || empty($Modele) || empty($Annee)) {
         echo "Tous les champs doivent être remplis.";
     } else {
-            $sqlInsert = "INSERT INTO Voitures (NumImmatriculation, Marque, Modele, Annee) 
-                          VALUES (?, ?, ?, ?)";
-
+            $sqlInsert = "INSERT INTO Voitures (NumImmatriculation, Marque, Modele, Annee) VALUES (?, ?, ?, ?)";
             $params = array($NumImmatriculation, $Marque, $Modele, $Annee);
             $stmtInsert = $conn->prepare($sqlInsert);
             $stmtInsert->execute($params);
@@ -38,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $sql = "SELECT * FROM Voitures";
 $voitures = mysqli_query($conn, $sql);
-
 $voitures->fetch_assoc();
 ?>
 

@@ -4,19 +4,12 @@ $dbname = 'locationvoitures';
 $username = 'root';
 $password = 'hamdi';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
-} catch (PDOException $e) {
-    echo "Erreur de connexion : " . $e->getMessage();
-    exit();
+$conn = mysqli_connect($host, $username, $password, $dbname);
+
+if(!$conn) {
+    die("connection failed". mysqli_connect_error());
 }
 
-$nom = "";
-$adresse = "";
-$tel = "";
-$errorMessage = "";
-$successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = $_POST['name'] ?? '';
@@ -24,32 +17,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tel = $_POST['number'] ?? '';
 
     if (empty($nom) || empty($adresse) || empty($tel)) {
-        $errorMessage = "Tous les champs doivent être remplis.";
+        echo "Tous les champs doivent être remplis.";
     } else {
-        try {
-            $sqlInsert = "INSERT INTO Clients (Nom, Adresse, Tel) VALUES (:nom, :adresse, :tel)";
-            $stmtInsert = $pdo->prepare($sqlInsert);
-            $stmtInsert->bindParam(':nom', $nom);
-            $stmtInsert->bindParam(':adresse', $adresse);
-            $stmtInsert->bindParam(':tel', $tel);
-            $stmtInsert->execute();
+            $sqlInsert = "INSERT INTO Clients (Nom, Adresse, Tel) VALUES (?, ?, ?)";
+            $params = array( $nom , $adresse, $tel);
+            $stmtInsert = $conn->prepare($sqlInsert);
+            $stmtInsert->execute( $params);
 
-            $successMessage = "Client ajouté avec succès.";
-
-            // Réinitialisation des champs après l'ajout
-            $nom = "";
-            $adresse = "";
-            $tel = "";
-        } catch (PDOException $e) {
-            $errorMessage = "Erreur lors de l'ajout du client : " . $e->getMessage();
-        }
+             $nom ="";
+            $adresse="";
+            $tel="";
+            header('location:clients.php');
+            echo "Voiture ajoutée avec succès.";
+          
+       
     }
 }
 
 $sql = "SELECT * FROM Clients";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$clients =mysqli_query($conn, $sql);
+$clients->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -101,15 +88,15 @@ $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
         <div class="mb-5">
             <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
-            <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($nom); ?>" required />
+            <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" required />
         </div>
         <div class="mb-5">
             <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
-            <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($adresse); ?>" required />
+            <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" required />
         </div>
         <div class="mb-5">
             <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
-            <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" value="<?php echo htmlspecialchars($tel); ?>" required />
+            <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" required />
         </div>
         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Ajouter</button>
         <button id="canceladd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
