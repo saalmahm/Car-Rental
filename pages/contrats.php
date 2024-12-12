@@ -1,27 +1,43 @@
 <?php
- $host = 'localhost';
- $dbname = 'locationvoitures';
- $username = 'root';
- $password = 'hamdi';
- 
- $conn = mysqli_connect($host, $username, $password, $dbname);
+$host = 'localhost';
+$dbname = 'locationvoitures';
+$username = 'root';
+$password = 'hamdi';
 
- if(!$conn) {
-     die("connection failed". mysqli_connect_error());
- }
+$conn = mysqli_connect($host, $username, $password, $dbname);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-$sql = "SELECT ct.*, c.Nom FROM Contrats ct, Clients c";
-$contrats = mysqli_query($conn, $sql);
-$contrats->fetch_assoc();
+$sql = "SELECT ct.*, c.Nom FROM Contrats ct JOIN Clients c ON ct.NumClient = c.NumClient";
+$contratsResult = mysqli_query($conn, $sql);
+
+$contrats = [];
+if ($contratsResult && mysqli_num_rows($contratsResult) > 0) {
+    while ($row = mysqli_fetch_assoc($contratsResult)) {
+        $contrats[] = $row;
+    }
+}
 
 $sql = "SELECT * FROM Clients";
-$clients = mysqli_query($conn, $sql); 
-$clients->fetch_assoc();
+$clientsResult = mysqli_query($conn, $sql);
+$clients = [];
+if ($clientsResult && mysqli_num_rows($clientsResult) > 0) {
+    while ($row = mysqli_fetch_assoc($clientsResult)) {
+        $clients[] = $row;
+    }
+}
 
 $sql = "SELECT * FROM Voitures";
-$voitures = mysqli_query($conn, $sql); 
-$voitures->fetch_assoc();
- ?>
+$voituresResult = mysqli_query($conn, $sql);
+$voitures = [];
+if ($voituresResult && mysqli_num_rows($voituresResult) > 0) {
+    while ($row = mysqli_fetch_assoc($voituresResult)) {
+        $voitures[] = $row;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
