@@ -98,20 +98,6 @@ $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
     <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
-    <!-- Affichage des alertes -->
-    <?php if (!empty($errorMessage)): ?>
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong><?php echo $errorMessage; ?></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <?php endif; ?>
-    <?php if (!empty($successMessage)): ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong><?php echo $successMessage; ?></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <?php endif; ?>
-
     <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
         <div class="mb-5">
             <label for="name" class="block mb-2 text-sm font-medium">Nom</label>

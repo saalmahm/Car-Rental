@@ -101,7 +101,7 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <input type="text" id="durée" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
-      <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer Customer</label>
+      <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer number</label>
       <input type="number" id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
