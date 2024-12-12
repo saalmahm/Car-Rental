@@ -38,7 +38,7 @@ $contrats = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div id="sidebar"
             class="shadow-xl fixed top-0 right-0 w-1/3 h-full bg-gray-200  z-50 transform translate-x-full duration-300 ">
             <div class="flex justify-end p-4">
-                <button id="close-sidebar" class=" text-3xl">×</button>
+                <button id="close-sidebar" class=" text-3xl">X</button>
             </div>
             <div class="flex flex-col items-center space-y-4 text-white">
                 <a href="/pages/voitures.php" class="text-black text-lg">Cars</a>
