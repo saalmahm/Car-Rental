@@ -9,6 +9,35 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $start = $_POST['startd'] ?? '';
+    $end = $_POST['endd'] ?? '';
+    $idclient = $_POST['idclient'] ?? '';
+    $duree = $_POST['duree'] ?? '';
+    $matricul = $_POST['matricul'] ?? '';
+
+    if (empty($start) || empty($end) || empty($duree) || empty($idclient) || empty($matricul)) {
+        echo "Tous les champs doivent être remplis.";
+    } else {
+            $sqlInsert = "INSERT INTO Contrats (DateDebut, DateFin, Duree , NumClient , NumImmatriculation) VALUES (?, ?, ?,?, ?)";
+            $params = array( $start , $end, $duree, $idclient, $matricul);
+            $stmtInsert = $conn->prepare($sqlInsert);
+            $stmtInsert->execute( $params);
+
+            $start ="";
+            $end="";
+            $duree="";
+            $idclient="";
+            $matricul="";
+            header('location:contrats.php');
+            echo "contrats ajoutée avec succès.";
+          
+       
+    }
+}
+
+
 $sql = "SELECT ct.*, c.Nom FROM Contrats ct JOIN Clients c ON ct.NumClient = c.NumClient";
 $contratsResult = mysqli_query($conn, $sql);
 
@@ -106,40 +135,40 @@ if ($voituresResult && mysqli_num_rows($voituresResult) > 0) {
 </section>
 
 <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
-  <form class="max-w-sm mx-auto bg-white p-10 rounded-lg">
+  <form method='post' class="max-w-sm mx-auto bg-white p-10 rounded-lg">
     <div class="mb-5">
-      <label for="start" class="block mb-2 text-sm font-medium">                    start date                </th>
+      <label for="start" class="block mb-2 text-sm font-medium">start date</th>
       </label>
-      <input type="date" id="start" class="border bg-gray-200 p-2 rounded-md" required />
+      <input name="startd" type="date" id="start" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
-      <label for="end" class="block mb-2 text-sm font-medium">                    end date                </th>
+      <label for="end" class="block mb-2 text-sm font-medium">end date</th>
       </label>
-      <input type="date" id="end" class="border bg-gray-200 p-2 rounded-md" required />
+      <input name="endd" type="date" id="end" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
       <label for="durée" class="block mb-2 text-sm font-medium">duration in days</label>
-      <input type="text" id="durée" class="border bg-gray-200 p-2 rounded-md" required />
+      <input name="duree" type="text" id="durée" class="border bg-gray-200 p-2 rounded-md" required />
     </div>
     <div class="mb-5">
       <label for="CustomerNumber" class="block mb-2 text-sm font-medium"> Customer</label>
-      <select id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md">
+      <select name="idclient" id="CustomerNumber" class="border bg-gray-200 p-2 rounded-md">
         <?php foreach($clients as $client){ ?>
             <option value="<?php echo $client['NumClient'] ?>"><?php echo $client['Nom'] ?></option>
         <?php } ?>
       </select>
     </div>
     <div class="mb-5">
-      <label for="Registration" class="block mb-2 text-sm font-medium">Registration number                       </th>
+      <label for="Registration" class="block mb-2 text-sm font-medium">Registration number</th>
       </label>
-      <select id="Registration" class="border bg-gray-200 p-2 rounded-md" required >
+      <select name="matricul" id="Registration" class="border bg-gray-200 p-2 rounded-md" required >
         <?php foreach($voitures as $voiture){ ?>
         <option value="<?php echo $voiture['NumImmatriculation'] ?>"> <?php echo $voiture['NumImmatriculation'] ?> </option>
        <?php } ?>
       </select>
     </div>
     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
-    <button id="canceladd" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+    <button id="canceladd" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
   </form>
 </div>
 
@@ -148,20 +177,12 @@ if ($voituresResult && mysqli_num_rows($voituresResult) > 0) {
     <table class="w-full text-sm text-left text-gray-400">
         <thead class="text-xs uppercase bg-gray-50 bg-gray-700 text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Contract number            </th>
-                <th scope="col" class="px-6 py-3">
-                    start date                </th>
-                <th scope="col" class="px-6 py-3">
-                    end date                </th>
-                <th scope="col" class="px-6 py-3">
-                    duration in days
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Customer number
-                </th>
-                <th scope="col" class="px-6 py-3">
-                Registration number                       </th>
+                <th scope="col" class="px-6 py-3">Contract number</th>   
+                <th scope="col" class="px-6 py-3">start date</th>
+                <th scope="col" class="px-6 py-3">end date</th>
+                <th scope="col" class="px-6 py-3">duration in days </th>
+                <th scope="col" class="px-6 py-3">Customer number</th>
+                <th scope="col" class="px-6 py-3"> Registration number</th>
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
