@@ -84,7 +84,7 @@ $voitures->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location de Voitures</title>
+    <title>Car Rental</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -118,34 +118,33 @@ $voitures->fetch_assoc();
         <div class="px-6 flex items-center justify-between">
             <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-0">List of Cars </h1>
             <button id="addCar" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
-                Ajouter une voiture
-            </button>
+            Add a car            </button>
         </div>
     </section>
 
     <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
         <form method="POST" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
             <div class="mb-2">
-                <label for="NumImmatriculation" class="block mb-2 text-sm font-medium">Numéro d'immatriculation</label>
+                <label for="NumImmatriculation" class="block mb-2 text-sm font-medium">Registration number</label>
                 <input type="text" id="NumImmatriculation" name="NumImmatriculation" class="border bg-gray-200 p-2 rounded-md" required />
             </div>
             <div class="mb-5">
-                <label for="Marque" class="block mb-2 text-sm font-medium">Marque</label>
+                <label for="Marque" class="block mb-2 text-sm font-medium">Brand</label>
                 <input type="text" id="Marque" name="Marque" class="border bg-gray-200 p-2 rounded-md" required />
             </div>
             <div class="mb-5">
-                <label for="Modele" class="block mb-2 text-sm font-medium">Modèle</label>
+                <label for="Modele" class="block mb-2 text-sm font-medium">Model</label>
                 <input type="text" id="Modele" name="Modele" class="border bg-gray-200 p-2 rounded-md" required />
             </div>
             <div class="mb-5">
-                <label for="Annee" class="block mb-2 text-sm font-medium">Année</label>
+                <label for="Annee" class="block mb-2 text-sm font-medium">Year</label>
                 <input type="number" id="Annee" name="Annee" class="border bg-gray-200 p-2 rounded-md" required />
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                Ajouter
+                Add
             </button>
             <button id="cancelAdd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                Annuler
+                Cancel
             </button>
         </form>
     </div>
@@ -154,30 +153,30 @@ $voitures->fetch_assoc();
     <div id="modalEdit" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
         <form method="POST" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
             <div class="mb-2">
-                <label for="NumImmatriculation" class="block mb-2 text-sm font-medium">Numéro d'immatriculation</label>
+                <label for="NumImmatriculation" class="block mb-2 text-sm font-medium">Registration number</label>
                 <input type="text" id="NumImmatriculation" name="NumImmatriculation" class="border bg-gray-200 p-2 rounded-md" 
                 value="<?php echo isset($voiture) ? $voiture['NumImmatriculation'] : ''; ?>"   required />
             </div>
             <div class="mb-5">
-                <label for="Marque" class="block mb-2 text-sm font-medium">Marque</label>
+                <label for="Marque" class="block mb-2 text-sm font-medium">Brand</label>
                 <input type="text" id="Marque" name="Marque" class="border bg-gray-200 p-2 rounded-md" 
                 value="<?php echo isset($voiture) ? $voiture['Marque'] : ''; ?>"  required />
             </div>
             <div class="mb-5">
-                <label for="Modele" class="block mb-2 text-sm font-medium">Modèle</label>
+                <label for="Modele" class="block mb-2 text-sm font-medium">Model</label>
                 <input type="text" id="Modele" name="Modele" class="border bg-gray-200 p-2 rounded-md" 
                 value="<?php echo isset($voiture) ? $voiture['Modele'] : ''; ?>"   required />
             </div>
             <div class="mb-5">
-                <label for="Annee" class="block mb-2 text-sm font-medium">Année</label>
+                <label for="Annee" class="block mb-2 text-sm font-medium">Year</label>
                 <input type="number" id="Annee" name="Annee" class="border bg-gray-200 p-2 rounded-md"
                 value="<?php echo isset($voiture) ? $voiture['Annee'] : ''; ?>"   required />
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            Modifier
+            Edit
             </button>
             <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                Annuler
+                Cancel
             </button>
         </form>
     </div>
@@ -186,13 +185,13 @@ $voitures->fetch_assoc();
         <table class="w-full text-sm text-left text-gray-400">
             <thead class="text-xs uppercase bg-gray-50 bg-gray-700 text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Numéro d'immatriculation</th>
-                    <th scope="col" class="px-6 py-3">Marque</th>
-                    <th scope="col" class="px-6 py-3">Modèle</th>
-                    <th scope="col" class="px-6 py-3">Année</th>
+                    <th scope="col" class="px-6 py-3">Registration number</th>
+                    <th scope="col" class="px-6 py-3">Brand</th>
+                    <th scope="col" class="px-6 py-3">Model</th>
+                    <th scope="col" class="px-6 py-3">Year</th>
                     <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">Modifier</span>
-                        <span class="sr-only">Supprimer</span>
+                        <span class="sr-only">Edit</span>
+                        <span class="sr-only">Delete</span>
                     </th>
                 </tr>
             </thead>
@@ -204,8 +203,8 @@ $voitures->fetch_assoc();
                         <td class="px-6 py-4"><?php echo $voiture['Modele']; ?></td>
                         <td class="px-6 py-4"><?php echo $voiture['Annee']; ?></td>
                         <td class="px-6 py-4 text-right">
-                            <a href="./voitures.php?EditNumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
-                            <a href="./voitures.php?NumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                            <a href="./voitures.php?EditNumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="./voitures.php?NumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
