@@ -23,15 +23,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $params = array($NumImmatriculation, $Marque, $Modele, $Annee);
             $stmtInsert = $conn->prepare($sqlInsert);
             $stmtInsert->execute($params);
-
-            $NumImmatriculation = "";
-            $Marque = "";
-            $Modele = "";
-            $Annee = "";
             header('location:voitures.php');
             echo "Voiture ajoutée avec succès.";
 
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $EditVoiture=$_GET['EditNumImmatriculation'];
+    $NumImmatriculation= $_POST['NumImmatriculation'];
+    $Marque = $_POST['Marque'];
+    $Modele = $_POST['Modele'];
+    $Annee = $_POST['Annee'] ;
+    $stmt = $conn->prepare("UPDATE Voitures SET NumImmatriculation = ?, Marque = ?, Modele = ? , Annee = ?  WHERE NumImmatriculation = ?");
+    $stmt->bind_param("ssss", $NumImmatriculation,  $Marque,  $Modele , $Annee);
+    
+    if ($stmt->execute()) {
+        header('Location: voitures.php'); 
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+}
+
+if (isset($_GET['EditNumImmatriculation'])) {
+    $EditNumImmatriculation = $_GET['EditNumImmatriculation'];
+    echo "<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const editmodal = document.getElementById('modalEdit');
+            editmodal.classList.remove('hidden')
+        })
+    </script>";
+
+
+    $stmt = mysqli_query($conn, "SELECT * FROM Voitures WHERE NumImmatriculation = '$EditNumImmatriculation'");
+    
+    $voiture = mysqli_fetch_assoc($stmt);
+
+    
+    $stmt->close();
 }
 
 if (isset($_GET['NumImmatriculation'])) {
@@ -121,6 +150,38 @@ $voitures->fetch_assoc();
         </form>
     </div>
 
+
+    <div id="modalEdit" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
+        <form method="POST" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
+            <div class="mb-2">
+                <label for="NumImmatriculation" class="block mb-2 text-sm font-medium">Numéro d'immatriculation</label>
+                <input type="text" id="NumImmatriculation" name="NumImmatriculation" class="border bg-gray-200 p-2 rounded-md" 
+                value="<?php echo isset($voiture) ? $voiture['NumImmatriculation'] : ''; ?>"   required />
+            </div>
+            <div class="mb-5">
+                <label for="Marque" class="block mb-2 text-sm font-medium">Marque</label>
+                <input type="text" id="Marque" name="Marque" class="border bg-gray-200 p-2 rounded-md" 
+                value="<?php echo isset($voiture) ? $voiture['Marque'] : ''; ?>"  required />
+            </div>
+            <div class="mb-5">
+                <label for="Modele" class="block mb-2 text-sm font-medium">Modèle</label>
+                <input type="text" id="Modele" name="Modele" class="border bg-gray-200 p-2 rounded-md" 
+                value="<?php echo isset($voiture) ? $voiture['Modele'] : ''; ?>"   required />
+            </div>
+            <div class="mb-5">
+                <label for="Annee" class="block mb-2 text-sm font-medium">Année</label>
+                <input type="number" id="Annee" name="Annee" class="border bg-gray-200 p-2 rounded-md"
+                value="<?php echo isset($voiture) ? $voiture['Annee'] : ''; ?>"   required />
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+            Modifier
+            </button>
+            <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                Annuler
+            </button>
+        </form>
+    </div>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-2 my-8">
         <table class="w-full text-sm text-left text-gray-400">
             <thead class="text-xs uppercase bg-gray-50 bg-gray-700 text-gray-400">
@@ -143,7 +204,7 @@ $voitures->fetch_assoc();
                         <td class="px-6 py-4"><?php echo $voiture['Modele']; ?></td>
                         <td class="px-6 py-4"><?php echo $voiture['Annee']; ?></td>
                         <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                            <a href="./voitures.php?EditNumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
                             <a href="./voitures.php?NumImmatriculation=<?php echo $voiture['NumImmatriculation']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
                         </td>
                     </tr>
@@ -159,6 +220,7 @@ $voitures->fetch_assoc();
         const addCar = document.getElementById("addCar");
         const addmodal = document.getElementById("modalAdd");
         const cancel = document.getElementById("cancelAdd");
+        const cancelEdit=document.getElementById("cancelEdit");
 
         menu.addEventListener("click", () => {
             sidebar.classList.remove("translate-x-full");
@@ -177,6 +239,9 @@ $voitures->fetch_assoc();
         cancel.addEventListener("click", () => {
             addmodal.classList.toggle("hidden");
         });
+        cancelEdit.addEventListener('click',()=>{
+            window.location.href="/pages/voitures.php"
+        })
     </script>
 </body>
 </html>

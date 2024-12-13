@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (isset($_GET['EditNumClient'])) {
     $EditNumClient = $_GET['EditNumClient'];
     echo "<script>
-    const editmodal = document.getElementById('modalEdit');
     document.addEventListener('DOMContentLoaded', () => {
+        const editmodal = document.getElementById('modalEdit');
             editmodal.classList.remove('hidden')
         })
     </script>";
@@ -207,7 +207,6 @@ $clients->fetch_assoc();
         const sidebar = document.getElementById("sidebar");
         const closeSidebar = document.getElementById("close-sidebar");
         const addClient = document.getElementById("addClient");
-        
         const addmodal = document.getElementById("modalAdd");
         const cancelAdd = document.getElementById("canceladd");
         const cancelEdit = document.getElementById("cancelEdit");

@@ -24,16 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $params = array( $start , $end, $duree, $idclient, $matricul);
             $stmtInsert = $conn->prepare($sqlInsert);
             $stmtInsert->execute( $params);
-
-            $start ="";
-            $end="";
-            $duree="";
-            $idclient="";
-            $matricul="";
             header('location:contrats.php');
             echo "contrats ajoutée avec succès.";
           
-       
     }
 }
 
