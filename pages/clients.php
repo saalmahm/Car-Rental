@@ -23,20 +23,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $params = array( $nom , $adresse, $tel);
             $stmtInsert = $conn->prepare($sqlInsert);
             $stmtInsert->execute( $params);
-
-            $nom ="";
-            $adresse="";
-            $tel="";
             header('location:clients.php');
-            echo "Voiture ajoutée avec succès.";
-          
-       
+            echo "Voiture ajoutée avec succès.";  
     }
+}
+
+
+    
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $EditNumClient = $_GET['EditNumClient'];
+    $nom = $_POST['name'];
+    $adresse = $_POST['address'];
+    $tel = $_POST['number'];
+    $stmt = $conn->prepare("UPDATE Clients SET Nom = ?, Adresse = ?, Tel = ? WHERE NumClient = ?");
+    $stmt->bind_param("sssi", $nom, $adresse, $tel, $EditNumClient);
+    
+    if ($stmt->execute()) {
+        header('Location: clients.php'); // rediriger après la mise à jour
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+}
+
+if (isset($_GET['EditNumClient'])) {
+    $EditNumClient = $_GET['EditNumClient'];
+    echo "<script>
+    const editmodal = document.getElementById('modalEdit');
+    document.addEventListener('DOMContentLoaded', () => {
+            editmodal.classList.remove('hidden')
+        })
+    </script>";
+
+
+    $stmt = mysqli_query($conn, "SELECT * FROM Clients WHERE NumClient = $EditNumClient");
+    
+    $client = mysqli_fetch_assoc($stmt);
+
+    
+    $stmt->close();
 }
 
 if (isset($_GET['NumClient'])) {
     $NumClient = $_GET['NumClient'];
 
+    
     $params = array($NumClient);
     $deleteClient = $conn->prepare("Delete FROM Clients WHERE NumClient = ?");
 
@@ -95,23 +125,52 @@ $clients->fetch_assoc();
     </section>
 
     <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
-    <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
-        <div class="mb-5">
-            <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
-            <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" required />
-        </div>
-        <div class="mb-5">
-            <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
-            <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" required />
-        </div>
-        <div class="mb-5">
-            <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
-            <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" required />
-        </div>
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Ajouter</button>
-        <button id="canceladd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
-    </form>
-</div>
+        <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
+            <div class="mb-5">
+                <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
+                <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" 
+                     required />
+            </div>
+            <div class="mb-5">
+                <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
+                <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" 
+                     required />
+            </div>
+            <div class="mb-5">
+                <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
+                <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" 
+                     required />
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                <?php echo isset($client) ? 'Modifier' : 'Ajouter'; ?>
+            </button>
+            <button id="canceladd" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
+        </form>
+    </div>
+
+    <div id="modalEdit" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
+        <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
+            <div class="mb-5">
+                <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
+                <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" 
+                    value="<?php echo isset($client) ? $client['Nom'] : ''; ?>" required />
+            </div>
+            <div class="mb-5">
+                <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
+                <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" 
+                    value="<?php echo isset($client) ? $client['Adresse'] : ''; ?>" required />
+            </div>
+            <div class="mb-5">
+                <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
+                <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" 
+                    value="<?php echo isset($client) ? $client['Tel'] : ''; ?>" required />
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                Modifier
+            </button>
+            <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
+        </form>
+    </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-2 my-8">
         <table class="w-full text-sm text-left text-gray-400">
@@ -134,7 +193,7 @@ $clients->fetch_assoc();
                     <td class="px-6 py-4"><?php echo $client['Adresse']; ?></td>
                     <td class="px-6 py-4"><?php echo $client['Tel']; ?></td>
                     <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                        <a href="./clients.php?EditNumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
                         <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
                         </td>
                 </tr>
@@ -148,8 +207,10 @@ $clients->fetch_assoc();
         const sidebar = document.getElementById("sidebar");
         const closeSidebar = document.getElementById("close-sidebar");
         const addClient = document.getElementById("addClient");
+        
         const addmodal = document.getElementById("modalAdd");
-        const cancel = document.getElementById("canceladd");
+        const cancelAdd = document.getElementById("canceladd");
+        const cancelEdit = document.getElementById("cancelEdit");
 
         menu.addEventListener("click", () => {
             sidebar.classList.remove("translate-x-full");
@@ -164,9 +225,16 @@ $clients->fetch_assoc();
         addClient.addEventListener("click", () => {
             addmodal.classList.toggle("hidden");
         });
-        cancel.addEventListener("click", () => {
+        cancelAdd.addEventListener("click", () => {
             addmodal.classList.toggle("hidden");
         });
+
+        cancelEdit.addEventListener('click', () => {
+            window.location.href = "/pages/clients.php";
+        })
+
+        
+
     </script>
 </body>
 

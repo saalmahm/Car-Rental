@@ -42,7 +42,6 @@ if (isset($_GET['NumContrat'])) {
 
     $params = array($NumContrat);
     $deleMatricul = $conn->prepare("Delete FROM Contrats WHERE NumContrat = ?");
-
     $deleMatricul->execute($params); 
     header('location:contrats.php'); 
 }
