@@ -212,7 +212,7 @@ if ($voituresResult && mysqli_num_rows($voituresResult) > 0) {
         </td>
         <td class="px-6 py-4 text-right">
             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit  </a>
-            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+            <a href="./contrats.php?NumImmatriculation=<?php echo $client['NumImmatriculation']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
 
         </td>
     </tr>

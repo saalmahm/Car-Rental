@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtInsert = $conn->prepare($sqlInsert);
             $stmtInsert->execute( $params);
 
-             $nom ="";
+            $nom ="";
             $adresse="";
             $tel="";
             header('location:clients.php');
@@ -32,6 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           
        
     }
+}
+
+if (isset($_GET['NumClient'])) {
+    $NumClient = $_GET['NumClient'];
+
+    $params = array($NumClient);
+    $deleteClient = $conn->prepare("Delete FROM Clients WHERE NumClient = ?");
+
+    $deleteClient->execute($params); 
+    header('location:clients.php'); 
 }
 
 $sql = "SELECT * FROM Clients";
@@ -125,8 +135,8 @@ $clients->fetch_assoc();
                     <td class="px-6 py-4"><?php echo $client['Tel']; ?></td>
                     <td class="px-6 py-4 text-right">
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
-                        <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
-                    </td>
+                        <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                        </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
