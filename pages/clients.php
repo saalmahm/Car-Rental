@@ -66,13 +66,24 @@ if (isset($_GET['EditNumClient'])) {
 if (isset($_GET['NumClient'])) {
     $NumClient = $_GET['NumClient'];
 
-    
-    $params = array($NumClient);
-    $deleteClient = $conn->prepare("Delete FROM Clients WHERE NumClient = ?");
+    $checkContractQuery = "SELECT COUNT(*) AS contract_count FROM Contrats WHERE NumClient = ?";
+    $stmt = $conn->prepare($checkContractQuery);
+    $stmt->bind_param("i", $NumClient);
+    $stmt->execute();
+    $stmt->bind_result($contractCount);
+    $stmt->fetch();
+    $stmt->close();
 
-    $deleteClient->execute($params); 
-    header('location:clients.php'); 
+    if ($contractCount > 0) {
+        $errorMessage = "Le client a un contrat actif et ne peut pas être supprimé.";
+    } else {
+        $deleteClient = $conn->prepare("DELETE FROM Clients WHERE NumClient = ?");
+        $deleteClient->bind_param("i", $NumClient);
+        $deleteClient->execute();
+        header('location:clients.php');
+    }
 }
+
 
 $sql = "SELECT * FROM Clients";
 $clients =mysqli_query($conn, $sql);
@@ -170,6 +181,12 @@ $clients->fetch_assoc();
             <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
         </form>
     </div>
+
+    <?php if (isset($errorMessage)): ?>
+    <div class="bg-red-600 text-white p-6 m-4 flex justify-center item-center<">
+        <?php echo $errorMessage; ?>
+    </div>
+<?php endif; ?>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-2 my-8">
         <table class="w-full text-sm text-left text-gray-400">
