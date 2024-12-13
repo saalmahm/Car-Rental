@@ -193,7 +193,7 @@ $clients->fetch_assoc();
                     <td class="px-6 py-4"><?php echo $client['Tel']; ?></td>
                     <td class="px-6 py-4 text-right">
                         <a href="./clients.php?EditNumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                        <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancel</a>
+                        <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                         </td>
                 </tr>
                 <?php endforeach; ?>
