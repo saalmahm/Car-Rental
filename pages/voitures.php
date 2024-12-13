@@ -66,12 +66,24 @@ if (isset($_GET['EditNumImmatriculation'])) {
 if (isset($_GET['NumImmatriculation'])) {
     $NumImmatriculation = $_GET['NumImmatriculation'];
 
-    $params = array($NumImmatriculation);
-    $deleteVoiture = $conn->prepare("Delete FROM Voitures WHERE NumImmatriculation = ?");
+    $checkContractQuery = "SELECT COUNT(*) AS contract_count FROM Contrats WHERE NumImmatriculation = ?";
+    $stmt = $conn->prepare($checkContractQuery);
+    $stmt->bind_param("s", $NumImmatriculation);
+    $stmt->execute();
+    $stmt->bind_result($contractCount);
+    $stmt->fetch();
+    $stmt->close();
 
-    $deleteVoiture->execute($params); 
-    header('location:voitures.php'); 
+    if ($contractCount > 0) {
+        $errorMessage = "La voiture est associée à un contrat actif et ne peut pas être supprimée.";
+    } else {
+        $params = array($NumImmatriculation);
+        $deleteVoiture = $conn->prepare("DELETE FROM Voitures WHERE NumImmatriculation = ?");
+        $deleteVoiture->execute($params);
+        header('location:voitures.php');
+    }
 }
+
 
 $sql = "SELECT * FROM Voitures";
 $voitures = mysqli_query($conn, $sql);
@@ -181,6 +193,11 @@ $voitures->fetch_assoc();
         </form>
     </div>
 
+    <?php if (isset($errorMessage)): ?>
+    <div class="bg-red-600 text-white p-6 m-4 flex justify-center item-center<">
+        <?php echo $errorMessage; ?>
+    </div>
+<?php endif; ?>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-2 my-8">
         <table class="w-full text-sm text-left text-gray-400">
             <thead class="text-xs uppercase bg-gray-50 bg-gray-700 text-gray-400">
