@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("sssi", $nom, $adresse, $tel, $EditNumClient);
     
     if ($stmt->execute()) {
-        header('Location: clients.php'); // rediriger après la mise à jour
+        header('Location: clients.php'); 
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -85,7 +85,7 @@ $clients->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location de Voitures - Gestion des Clients</title>
+    <title>Car Rental - Customer Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -117,27 +117,26 @@ $clients->fetch_assoc();
 
     <section class="bg-blue-200 py-8 relative">
         <div class="px-6 flex items-center justify-between">
-            <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-0">Liste des clients</h1>
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-0">Customer List</h1>
             <button id="addClient" class="bg-blue-600 text-white py-3 px-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
-                Ajouter un nouveau client
-            </button>
+            Add a new customer            </button>
         </div>
     </section>
 
     <div id="modalAdd" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
         <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
             <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
+                <label for="name" class="block mb-2 text-sm font-medium">Name</label>
                 <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" 
                      required />
             </div>
             <div class="mb-5">
-                <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
+                <label for="address" class="block mb-2 text-sm font-medium">Adress</label>
                 <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" 
                      required />
             </div>
             <div class="mb-5">
-                <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
+                <label for="number" class="block mb-2 text-sm font-medium">Phone number</label>
                 <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" 
                      required />
             </div>
@@ -151,24 +150,24 @@ $clients->fetch_assoc();
     <div id="modalEdit" class="hidden fixed inset-0 bg-gray-900 bg-opacity-60 flex items-center justify-center z-50">
         <form method="post" class="max-w-sm mx-auto bg-white p-10 rounded-lg">
             <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium">Nom</label>
+                <label for="name" class="block mb-2 text-sm font-medium">Name</label>
                 <input type="text" id="name" name="name" class="border bg-gray-200 p-2 rounded-md" 
                     value="<?php echo isset($client) ? $client['Nom'] : ''; ?>" required />
             </div>
             <div class="mb-5">
-                <label for="address" class="block mb-2 text-sm font-medium">Adresse</label>
+                <label for="address" class="block mb-2 text-sm font-medium">Adress</label>
                 <input type="text" id="address" name="address" class="border bg-gray-200 p-2 rounded-md" 
                     value="<?php echo isset($client) ? $client['Adresse'] : ''; ?>" required />
             </div>
             <div class="mb-5">
-                <label for="number" class="block mb-2 text-sm font-medium">Numéro de téléphone</label>
+                <label for="number" class="block mb-2 text-sm font-medium">Phone number</label>
                 <input type="text" id="number" name="number" class="border bg-gray-200 p-2 rounded-md" 
                     value="<?php echo isset($client) ? $client['Tel'] : ''; ?>" required />
             </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                Modifier
+                Edit
             </button>
-            <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Annuler</button>
+            <button id="cancelEdit" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
         </form>
     </div>
 
@@ -176,11 +175,11 @@ $clients->fetch_assoc();
         <table class="w-full text-sm text-left text-gray-400">
             <thead class="text-xs uppercase bg-gray-50 bg-gray-700 text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3">Numéro Client</th>
-                    <th scope="col" class="px-6 py-3">Nom</th>
-                    <th scope="col" class="px-6 py-3">Adresse</th>
-                    <th scope="col" class="px-6 py-3">Numéro de téléphone</th>
-                    <th scope="col" class="px-6 py-3"><span class="sr-only">Modifier</span></th>
+                    <th scope="col" class="px-6 py-3">Customer Number</th>
+                    <th scope="col" class="px-6 py-3">Name</th>
+                    <th scope="col" class="px-6 py-3">Adress</th>
+                    <th scope="col" class="px-6 py-3">Phone number</th>
+                    <th scope="col" class="px-6 py-3"><span class="sr-only">Edit</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -193,8 +192,8 @@ $clients->fetch_assoc();
                     <td class="px-6 py-4"><?php echo $client['Adresse']; ?></td>
                     <td class="px-6 py-4"><?php echo $client['Tel']; ?></td>
                     <td class="px-6 py-4 text-right">
-                        <a href="./clients.php?EditNumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
-                        <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                        <a href="./clients.php?EditNumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <a href="./clients.php?NumClient=<?php echo $client['NumClient']; ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancel</a>
                         </td>
                 </tr>
                 <?php endforeach; ?>
